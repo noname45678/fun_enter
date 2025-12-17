@@ -1,0 +1,34 @@
+https://www.hammerspoon.org
+
+---------
+
+mkdir -p ~/Sounds
+https://www.myinstants.com/ru/instant/bu-ispugalsia-ne-boisia-51457/
+https://zvukogram.com/category/zvuki-iz-memov/
+
+---------
+
+mkdir -p ~/.hammerspoon
+nano ~/.hammerspoon/init.lua
+
+---------
+
+local soundPath = os.getenv("HOME") .. "/Downloads/Sounds/awp1.mp3"
+local sound = hs.sound.getByFile(soundPath)
+
+local eventtap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, function(e)
+  if e:getKeyCode() == 36 then -- Return
+    if sound then
+      sound:stop()   -- мгновенно обрывает текущий звук
+      sound:play()   -- стартует заново
+    end
+    return false
+  end
+  return false
+end)
+
+eventtap:start()
+
+---------
+
+hs.reload()
